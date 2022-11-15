@@ -46,4 +46,13 @@ kubectl create ns test
 kubectl label namespace test istio-injection=enabled
 helm upgrade -i flagger-loadtester flagger/loadtester -n test
 
+# create hpa (optional)
 
+# create canary
+kubectl apply -f canary.yaml -n demo
+
+# 模拟测试
+kubectl exec -it -n demo sleep-xxx -c sleep sh
+while [ 1 ]; do curl http://httpbin.demo:8000/headers; sleep 2s; done
+
+kubectl -n istio-system port-forward svc/flagger-grafana 3000:80
