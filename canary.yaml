@@ -17,10 +17,10 @@ spec:
   # to make progress before it is rollback (default 600s)
   progressDeadlineSeconds: 60
   # HPA reference (optional)
-  autoscalerRef:
-    apiVersion: autoscaling/v2beta2
-    kind: HorizontalPodAutoscaler
-    name: httpbin
+  #autoscalerRef:
+  #  apiVersion: autoscaling/v2beta2
+  #  kind: HorizontalPodAutoscaler
+  #  name: httpbin
   service:
     # service name (defaults to targetRef.name)
     name: httpbin
@@ -75,14 +75,14 @@ spec:
       thresholdRange:
         max: 500
       interval: 30s
-    - name: "database connections"
-      # custom metric check
-      templateRef:
-        name: db-connections
-      thresholdRange:
-        min: 2
-        max: 100
-      interval: 1m
+    #- name: "database connections"
+    #  # custom metric check
+    #  templateRef:
+    #    name: db-connections
+    #  thresholdRange:
+    #    min: 2
+    #    max: 100
+    #  interval: 1m
     # testing (optional)
     webhooks:
       - name: "conformance test"
