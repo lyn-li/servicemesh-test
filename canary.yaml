@@ -85,13 +85,13 @@ spec:
     #  interval: 1m
     # testing (optional)
     webhooks:
-      - name: "conformance test"
-        type: pre-rollout
-        url: http://flagger-helmtester.test/
-        timeout: 5m
-        metadata:
-          type: "helmv3"
-          cmd: "test run podinfo -n test"
+      #- name: "conformance test"
+      #  type: pre-rollout
+      #  url: http://flagger-helmtester.test/
+      #  timeout: 5m
+      #  metadata:
+      #   type: "helmv3"
+      #    cmd: "test run podinfo -n test"
       - name: "load test"
         type: rollout
         url: http://flagger-loadtester.test/
