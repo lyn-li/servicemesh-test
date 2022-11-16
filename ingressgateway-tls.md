@@ -7,4 +7,5 @@ openssl x509 -req -sha256 -days 365 -CA example.com.crt -CAkey example.com.key -
 kubectl create secret -n istio-system generic httpbin-credential --from-file=key=httpbin.example.com.key --from-file=cert=httpbin.example.com.crt
 
 curl -v -HHost:httpbin.example.com --resolve httpbin.example.com:30097:192.168.2.181 --cacert /root/istio-1.15.3/example.com.crt https://httpbin.example.com:30097/status/418
+
 curl -v -HHost:httpbin.example.com --resolve httpbin.example.com:30097:192.168.2.181 https://httpbin.example.com:30097/status/418
