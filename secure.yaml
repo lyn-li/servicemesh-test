@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app: httpbin
 EOF
-
+---
 kubectl apply -f - <<EOF
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
@@ -28,7 +28,7 @@ spec:
     matchLabels:
       app: httpbin
 EOF
-
+---
 kubectl apply -f - <<EOF
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
@@ -51,7 +51,7 @@ spec:
     matchLabels:
       app: httpbin
 EOF
-
+---
 kubectl apply -f - <<EOF
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
