@@ -1,0 +1,79 @@
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: httpbin
+EOF
+
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin
+  namespace: demo
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/demo/sa/sleep"]
+    - source:
+        namespaces: ["demo"]
+  selector:
+    matchLabels:
+      app: httpbin
+EOF
+
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin
+  namespace: demo
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/demo/sa/sleep"]
+    - source:
+        namespaces: ["demo"]
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/get"]
+  selector:
+    matchLabels:
+      app: httpbin
+EOF
+
+kubectl apply -f - <<EOF
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: httpbin
+  namespace: demo
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/demo/sa/sleep"]
+    - source:
+        namespaces: ["demo"]
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/get"]
+    when:
+    - key: request.headers[x-rfma-token]
+      values: ["test*"]
+  selector:
+    matchLabels:
+      app: httpbin
+EOF
