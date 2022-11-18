@@ -1,0 +1,31 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-example
+  namespace: testjwt
+spec:
+  jwtRules:
+  - issuer: testing@secure.istio.io
+    jwksUri: https://raw.githubusercontent.com/malphi/geektime-servicemesh/master/c3-19/jwks.json
+  selector:
+    matchLabels:
+      app: httpbin
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: require-jwt
+  namespace: testjwt
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        requestPrincipals:
+        - testing@secure.istio.io/testing@secure.istio.io
+    when:
+    - key: request.headers[User-Agent]
+      values: ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"]
+  selector:
+    matchLabels:
+      app: httpbin
