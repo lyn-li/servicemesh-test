@@ -5,3 +5,5 @@ metadata:
 spec:
   mtls:
     mode: STRICT
+
+kubectl apply -f <(/bin/istioctl kube-inject -f samples/sleep/sleep.yaml) -n testauth
